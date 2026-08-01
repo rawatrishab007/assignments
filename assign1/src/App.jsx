@@ -41,14 +41,26 @@
 
 
 
+// import React from 'react'
+// import A from './class4/A'
+// import Context from './class4/Context'
+
+// const App = () => {
+//   return (
+//     <div>
+//       <A></A>
+//     </div>
+//   )
+// }
+
+// export default App
 import React from 'react'
-import A from './class4/A'
-import Context from './class4/Context'
+import Todos from './assignment2/Todos'
 
 const App = () => {
   return (
     <div>
-      <A></A>
+      <Todos/>
     </div>
   )
 }
