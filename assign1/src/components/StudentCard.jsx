@@ -12,12 +12,13 @@ const StudentCard = ({name,age}) => {
 const Card=()=>{
     return(
     <>
-    <StudentCard
-    name={"Rishab"}
+    <StudentCard 
+    name={Rishab}
     age={20}></StudentCard>
     <StudentCard
     name={"Rahul"}
     age={20}></StudentCard>
+    
     </>
     )
 }

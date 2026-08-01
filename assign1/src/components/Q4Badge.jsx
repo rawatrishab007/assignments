@@ -5,7 +5,6 @@ const Count = ({ totalCount }) => {
     <h3>Total: {totalCount}</h3>
   )
 }
-
 const Q4Badge = () => {
   const [task, setTask] = useState(["Task1", "Task2"])
   const [input, setInput] = useState("")
@@ -17,7 +16,6 @@ const Q4Badge = () => {
     setTask([...task, input])
     setInput("")
   }
-
   return (
     <div>
       <h2>TodoList <Count totalCount={task.length} /></h2>
