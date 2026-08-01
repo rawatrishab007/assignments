@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react'
 
 const Todos = () => {
-    const [todos,SetTodos]=useState([]);
+    const [todos,setTodo]=useState([])
     useEffect(()=>{
         fetch('https://jsonplaceholder.typicode.com/todos')
-        .then(res=>res.json())
-        .then((data)=>{
-          console.log(data)  
-          SetTodos(data)
+        .then((res)=>{
+           return res.json()
         })
+        .then((data)=>{
+             setTodo(data)
+        })
+       
     },[])
-    const CompletedTodos=todos.filter(todo=>todo.completed===true)
+     const todoFilter=todos.filter((todo)=>todo.completed===true)
   return (
     <div>
-      <h2>Completed todos</h2>
-      <ul>
-        {
-            CompletedTodos.map(todo=>(
-                <li key={todo.id}>
-                    Id:{todo.id}
-                    {todo.title}
-                </li>
-                
-            ))
-        }
-      </ul>
+      <h1>Todo completed</h1>
+     <ul>
+        {done.map((todo)=>{
+            return(
+            <li key={todo.id}>
+                Id:{todo.id}
+                Title:{todo.title}
+            </li>
+       ) })}
+     </ul>
 
+      
     </div>
   )
 }

@@ -55,12 +55,17 @@
 
 // export default App
 import React from 'react'
-import Todos from './assignment2/Todos'
-
+// import Todo3 from './assignment2/Todo3'
+// import Todo2 from './assignment2/Todo2'
+// import Todos from './assignment2/Todos'
+import Todo4 from './assignment2/Todo4'
 const App = () => {
   return (
     <div>
-      <Todos/>
+      {/* <Todos/> */}
+      {/* <Todo2/> */}
+      {/* <Todo3/> */}
+      <Todo4/>
     </div>
   )
 }
