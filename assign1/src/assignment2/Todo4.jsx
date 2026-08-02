@@ -11,10 +11,10 @@ const DeleteTodo = () => {
       });
   }, []);
 
-  const handleDelete = (idToDelete) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== idToDelete);
-    setTodos(updatedTodos);
-  };
+  const handleDelete=(idtoDelete)=>{
+    const updatedTodos=todos.filter((todo)=>todo.id!==idtoDelete)
+    setTodos(updatedTodos)
+  }
 
   return (
     <div>
