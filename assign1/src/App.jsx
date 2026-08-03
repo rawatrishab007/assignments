@@ -54,20 +54,39 @@
 // }
 
 // export default App
-import React from 'react'
+// import React from 'react'
 // import Todo3 from './assignment2/Todo3'
 // import Todo2 from './assignment2/Todo2'
 // import Todos from './assignment2/Todos'
-import Todo4 from './assignment2/Todo4'
+// import Todo4 from './assignment2/Todo4'
+// const App = () => {
+//   return (
+//     <div>
+//       {/* <Todos/> */}
+//       {/* <Todo2/> */}
+//       {/* <Todo3/> */}
+//       <Todo4/>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+
+
+import React from 'react'
+import Reducer from './class5/Reducer'
+import Tdo from './class5/Tdo'
+
 const App = () => {
   return (
     <div>
-      {/* <Todos/> */}
-      {/* <Todo2/> */}
-      {/* <Todo3/> */}
-      <Todo4/>
+      <Reducer/>
+      <Tdo/>
     </div>
   )
 }
 
 export default App
+

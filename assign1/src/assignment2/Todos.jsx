@@ -17,7 +17,7 @@ const Todos = () => {
     <div>
       <h1>Todo completed</h1>
      <ul>
-        {done.map((todo)=>{
+        {todoFilter.map((todo)=>{
             return(
             <li key={todo.id}>
                 Id:{todo.id}
