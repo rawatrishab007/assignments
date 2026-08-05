@@ -76,14 +76,17 @@
 
 
 import React from 'react'
-import Reducer from './class5/Reducer'
-import Tdo from './class5/Tdo'
+import Todos5 from './assignment2/Todos5'
+import Todo7 from './assignment2/todo7'
+// import Reducer from './class5/Reducer'
+// import Tdo from './class5/Tdo'
 
 const App = () => {
   return (
     <div>
-      <Reducer/>
-      <Tdo/>
+      {/* <Reducer/>
+      <Tdo/> */}
+      <Todo7/>
     </div>
   )
 }
