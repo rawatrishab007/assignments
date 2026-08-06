@@ -75,21 +75,44 @@
 
 
 
-import React from 'react'
-import Todos5 from './assignment2/Todos5'
-import Todo7 from './assignment2/todo7'
-// import Reducer from './class5/Reducer'
-// import Tdo from './class5/Tdo'
+// import React from 'react'
+// import Todos5 from './assignment2/Todos5'
+// import Todo7 from './assignment2/todo7'
+// // import Reducer from './class5/Reducer'
+// // import Tdo from './class5/Tdo'
 
+// const App = () => {
+//   return (
+//     <div>
+//       {/* <Reducer/>
+//       <Tdo/> */}
+//       <Todo7/>
+//     </div>
+//   )
+// }
+
+// export default App
+
+import React from 'react'
+import NavBar from './class1/NavBar'
+import { Route, Routes } from 'react-router-dom'
+import Home from './class1/Home1'
+import About from './class1/About'
+import ProductList from './class3/ProductList'
 const App = () => {
   return (
     <div>
-      {/* <Reducer/>
-      <Tdo/> */}
-      <Todo7/>
+      <NavBar/>
+      <Routes>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/About' element={<About/>}></Route>
+        <Route path='/List' element={<ProductList/>}></Route>
+      </Routes>
+
     </div>
   )
 }
 
 export default App
+
 
