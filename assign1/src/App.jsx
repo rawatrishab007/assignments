@@ -93,37 +93,49 @@
 
 // export default App
 
+// import React from 'react'
+// // import NavBar from './class1/NavBar'
+// import { Route, Routes } from 'react-router-dom'
+// // import Home from './class1/Home1'
+// // import About from './class1/About'
+// // import ProductList from './class3/ProductList'
+// // import Services from './class1/Services'
+// import Navigation from './assignment3/Navigation'
+// import Home from './assignment3/Home'
+// import Project from './assignment3/Project'
+// import Resume from './assignment3/Resume'
+// const App = () => {
+//   return (
+//     <div>
+//       {/* <NavBar/>
+//       <Routes>
+//         <Route path='/' element={<Home/>}></Route>
+//         <Route path='/About' element={<About/>}></Route>
+//         <Route path='/List' element={<ProductList/>}></Route>
+//         <Route path='/Service' element={<Services/>}></Route>
+//       </Routes> */}
+//       <Navigation/>
+//         <Routes>
+//           <Route path='/' element={<Home/>} ></Route>
+//           <Route path='/projects' element={<Project/>}></Route>
+//           <Route path='/resume' element={<Resume/>}></Route>
+//         </Routes>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
 import React from 'react'
-// import NavBar from './class1/NavBar'
-import { Route, Routes } from 'react-router-dom'
-// import Home from './class1/Home1'
-// import About from './class1/About'
-// import ProductList from './class3/ProductList'
-// import Services from './class1/Services'
-import Navigation from './assignment3/Navigation'
-import Home from './assignment3/Home'
-import Project from './assignment3/Project'
-import Resume from './assignment3/Resume'
+import List from './class7/List'
+
 const App = () => {
   return (
     <div>
-      {/* <NavBar/>
-      <Routes>
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/About' element={<About/>}></Route>
-        <Route path='/List' element={<ProductList/>}></Route>
-        <Route path='/Service' element={<Services/>}></Route>
-      </Routes> */}
-      <Navigation/>
-        <Routes>
-          <Route path='/' element={<Home/>} ></Route>
-          <Route path='/projects' element={<Project/>}></Route>
-          <Route path='/resume' element={<Resume/>}></Route>
-        </Routes>
+      <List/>
     </div>
   )
 }
 
 export default App
-
-
