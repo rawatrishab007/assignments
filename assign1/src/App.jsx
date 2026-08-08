@@ -24,12 +24,12 @@
      <h1>Question4</h1>
      <Q4Badge/> */}
 //      <NavBar/>
-//      <Routes>
-//       <Route path='/' element={<Home/>}></Route>
-//       <Route path='/About' element={<About/>}></Route>
-//       <Route path='/list' element={<ProductList/>}></Route>
-//       <Route path='/p/:id' element={<ProductD/>}></Route>
-//      </Routes>
+    //  <Routes>
+    //   <Route path='/' element={<Home/>}></Route>
+    //   <Route path='/About' element={<About/>}></Route>
+    //   <Route path='/list' element={<ProductList/>}></Route>
+    //   <Route path='/p/:id' element={<ProductD/>}></Route>
+    //  </Routes>
 //      {/* <Likes/> */}
      
 //     </div>
@@ -127,15 +127,31 @@
 // export default App
 
 
-import React from 'react'
-import List from './class7/List'
+import React from 'react';
+import Navbar from './class1/NavBar';
+import { Route, Routes } from 'react-router-dom';
+import Home1 from './class1/Home1';
+// import ProductList from './class3/ProductList';
+// import ProductD from './class3/ProductD'; // 1. Added import
+import StudentD from './class3/StudentD';
+import StudentList from './class3/StudentList';
+import NotFound from './class3/NotFound';
 
 const App = () => {
   return (
     <div>
-      <List/>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home1 />} />
+        {/* <Route path="/product" element={<ProductList />} />
+        {/* 2. Added dynamic route matching /p/:id */}
+        {/* <Route path="/p/:id" element={<ProductD />} /> */} 
+        <Route path='/students' element={<StudentList/>}></Route>
+        <Route path='/s/:id' element={<StudentD/>}></Route>
+        <Route path='*' element={<NotFound/>}></Route>
+      </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

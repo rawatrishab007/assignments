@@ -10,7 +10,8 @@ const handleSearch = () => {
   useEffect(() => {
     fetch('https://dummyjson.com/products')
       .then((res) => res.json())
-      .then((data) => setResult(data.products));
+      .then((data) => setResult(data.products) ,console.log(data));
+      
   }, []);
   return (
     <div>
@@ -20,7 +21,7 @@ const handleSearch = () => {
         {result.map((item) => (
           <li key={item.id} >
             <img src={item.thumbnail} alt={item.title}/>
-            {item.id}
+            {item.id}:-\
             {item.title}
           </li>
         ))}

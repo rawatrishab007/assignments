@@ -1,8 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
-const ProductD = () => {
-    let {id}=useParams()
+const ProductsD = () => {
+   let{id}= useParams()
+   console.log(id,"idididid");
+   
+
     const products = [
         {
           id: 1,
@@ -20,16 +23,24 @@ const ProductD = () => {
           price: 50000,
         },
       ];
-      let data=products.find((a)=>{
-        console.log(a.id,"hello")
-        return a.id==id
+
+   let data=   products.find((a)=>{
+    console.log(a.id,"iskoooo");
+    
+    return a.id==id
+
       })
+      console.log(data,"datatata");
+      
+
+
 
   return (
-    <div>
-      {data.name}
+    <div>{data.name}
+    {data.price}
     </div>
+    
   )
 }
 
-export default ProductD
+export default ProductsD
