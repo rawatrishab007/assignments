@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import NotFound from './NotFound'
 
 const StudentD = () => {
@@ -16,6 +16,7 @@ const StudentD = () => {
     <>
       <div>{stud.name}</div>
       <div>{stud.age}</div>
+      <Link to={'/'}>Back to 🏡 </Link>
     </>
   )
 }

@@ -154,4 +154,19 @@ const App = () => {
   );
 };
 
-export default App;
+// // export default App;
+// import React from 'react'
+// import Reducer from './class5/Reducer'
+// import Tdo from './class5/Tdo'
+
+// const App = () => {
+//   return (
+//     <div>
+//       <Reducer/>
+//       <Tdo/>
+//     </div>
+//   )
+// }
+
+export default App
+
