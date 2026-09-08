@@ -127,32 +127,32 @@
 // export default App
 
 
-import React from 'react';
-import Navbar from './class1/NavBar';
-import { Route, Routes } from 'react-router-dom';
-import Home1 from './class1/Home1';
-// import ProductList from './class3/ProductList';
-// import ProductD from './class3/ProductD'; // 1. Added import
-import StudentD from './class3/StudentD';
-import StudentList from './class3/StudentList';
-import NotFound from './class3/NotFound';
+// import React from 'react';
+// import Navbar from './class1/NavBar';
+// import { Route, Routes } from 'react-router-dom';
+// import Home1 from './class1/Home1';
+// // import ProductList from './class3/ProductList';
+// // import ProductD from './class3/ProductD'; // 1. Added import
+// import StudentD from './class3/StudentD';
+// import StudentList from './class3/StudentList';
+// import NotFound from './class3/NotFound';
 
-const App = () => {
-  return (
-    <div>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home1 />} />
-        {/* <Route path="/product" element={<ProductList />} />
-        {/* 2. Added dynamic route matching /p/:id */}
-        {/* <Route path="/p/:id" element={<ProductD />} /> */} 
-        <Route path='/students' element={<StudentList/>}></Route>
-        <Route path='/s/:id' element={<StudentD/>}></Route>
-        <Route path='*' element={<NotFound/>}></Route>
-      </Routes>
-    </div>
-  );
-};
+// const App = () => {
+//   return (
+//     <div>
+//       <Navbar />
+//       <Routes>
+//         <Route path="/" element={<Home1 />} />
+//         {/* <Route path="/product" element={<ProductList />} />
+//         {/* 2. Added dynamic route matching /p/:id */}
+//         {/* <Route path="/p/:id" element={<ProductD />} /> */} 
+//         <Route path='/students' element={<StudentList/>}></Route>
+//         <Route path='/s/:id' element={<StudentD/>}></Route>
+//         <Route path='*' element={<NotFound/>}></Route>
+//       </Routes>
+//     </div>
+//   );
+// };
 
 // // export default App;
 // import React from 'react'
@@ -168,5 +168,47 @@ const App = () => {
 //   )
 // }
 
-export default App
+// import React from 'react'
+// import Color from './class5/Color'
 
+// const App = () => {
+//   return (
+//     <div>
+//       <Color/>
+//     </div>
+//   )
+// }
+
+// export default App
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+
+// const App = () => {
+//   const [apiData, setApiData] = useState([]);
+
+//   useEffect(() => {
+//     async function api() {
+//       try {
+//         const res = await axios.get("http://localhost:4000/");
+//         setApiData(res.data);
+//       } catch (err) {
+//         console.error("Error fetching data:", err);
+//       }
+//     }
+//     api();
+//   }, []);
+
+//   return (
+//     <div>
+//       {apiData.map((val) => (
+//         <div key={val.id}>
+//           <h1>{val.id}</h1>
+//           <h2>{val.name}</h2>
+//           <p>Category: {val.category} | Price: ₹{val.price}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default App;
