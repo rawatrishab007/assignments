@@ -260,87 +260,178 @@ import express from "express";
 import bcryptjs from "bcryptjs";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
+
 import User from "./db/db.js";
+import sendEmailModule from "./sendEmail.cjs";
+
+const { sendEmail } = sendEmailModule;
 
 let app = express();
+
 app.use(express.json());
+
+let router = express.Router();
 
 const JWT_SECRET = "hehehehhe";
 
-mongoose.connect("mongodb://127.0.0.1:27017/db").then(() => {
-  console.log("db....");
-});
+mongoose
+  .connect("mongodb://127.0.0.1:27017/db")
+  .then(() => {
+    console.log("db....");
+  })
+  .catch((err) => {
+    console.error("DB connection error:", err);
+  });
 
 app.post("/signUp", async (req, res) => {
-  let { name, email, password } = req.body;
-  let findData = await User.findOne({ email });
-  console.log(findData, "hjehehe");
+  try {
+    let { name, email, password } = req.body;
 
-  if (findData) {
-    return res.send("user jinda haii....");
-  } else {
-    let updateddP = await bcryptjs.hash(password, 10);
+    let findData = await User.findOne({ email });
 
-    console.log("Email:", email);
-    console.log("Encrypted Password:", updateddP);
+    console.log(findData, "hjehehe");
 
-    let UserInfo = new User({
-      name,
-      email,
-      password: updateddP,
-    });
-    await UserInfo.save();
-    res.send("done.....");
+    if (findData) {
+      return res.send("user jinda haii....");
+    } else {
+      let updateddP = await bcryptjs.hash(password, 10);
+
+      console.log("Email:", email);
+      console.log("Encrypted Password:", updateddP);
+
+      let UserInfo = new User({
+        name,
+        email,
+        password: updateddP,
+      });
+
+      await UserInfo.save();
+
+      return res.send("done.....");
+    }
+  } catch (err) {
+    return res.status(500).send("Server error");
   }
 });
 
 app.post("/login", async (req, res) => {
-  let { email, password } = req.body;
-  let findData = await User.findOne({ email });
+  try {
+    let { email, password } = req.body;
 
-  if (!findData) {
-    return res.send("apse na ho payega....");
+    let findData = await User.findOne({ email });
+
+    if (!findData) {
+      return res.send("apse na ho payega....");
+    }
+
+    console.log("Email:", findData.email);
+    console.log("Password:", findData.password);
+
+    let validP = await bcryptjs.compare(password, findData.password);
+
+    if (!validP) {
+      return res.send("apse na ho payega....");
+    }
+
+    let token = jwt.sign(
+      {
+        email: findData.email,
+        role: findData.role,
+      },
+      JWT_SECRET
+    );
+
+    console.log(token, "tokennnnnnnnnn");
+
+    return res.json({
+      msg: "done",
+      token,
+    });
+  } catch (err) {
+    return res.status(500).send("Server error");
   }
-  console.log("Email:", findData.email);
-  console.log("Password:", findData.password);
-
-  let validP = await bcryptjs.compare(password, findData.password);
-  if (!validP) {
-    return res.send("apse na ho payega....");
-  }
-
-  let token = jwt.sign(
-    { email: findData.email, role: findData.role },
-    JWT_SECRET
-  );
-  console.log(token, "tokennnnnnnnnn");
-  res.json({ msg: "done", token });
 });
 
 let auth = (req, res, next) => {
   let token = req.headers.authorization;
+
   console.log(token, "toeknn");
 
   if (!token) {
     return res.send("kaun hai app...");
   }
+
   if (token.startsWith("Bearer ")) {
-    token = token.slice(7, token.length).trimLeft();
+    token = token.slice(7).trimStart();
   }
 
   try {
     let decode = jwt.verify(token, JWT_SECRET);
+
     console.log(decode, "isse");
-    req.user = decode; 
+
+    req.user = decode;
+
     next();
   } catch (err) {
     return res.send("token galat hai ya expire ho gya...");
   }
 };
 
-app.get("/api", auth, (req, res) => {
-  res.send("heheh");
+app.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    const resetToken = crypto.randomBytes(20).toString("hex");
+
+    user.resetToken = resetToken;
+    user.resetTokenExpiry = Date.now() + 3600000;
+
+    await user.save();
+
+    const resetUrl =
+      `${req.protocol}://${req.get("host")}/api/reset-password/${resetToken}`;
+
+    await sendEmail(
+      user.email,
+      "Password Reset Request",
+      `Click the link below to reset your password:\n\n${resetUrl}`
+    );
+
+    res.status(200).send("Password reset email sent");
+  } catch (error) {
+    res
+      .status(500)
+      .send("Error sending password reset email: " + error.message);
+  }
 });
+app.post('/reset-password/:token', async(req,res)=>{
+   let {newP}= req.body
+     let {token}=   req.params
+    let user=  await User.findOne({
+         resetToken:token,
+         resetTokenExpiry:{$gt: Date.now()}
+         
+     })
+     if(!user){
+      return res.send("User not found")
+     }
+     else{
+       let updatedP=  await   bcryptjs.hash(newP,10)
+       user.passWord=updatedP
+       user.resetToken=undefined
+       user.resetTokenExpiry=undefined
+       await user.save()
+     }
+
+ })
 
 app.listen(3000, () => {
   console.log("server....");

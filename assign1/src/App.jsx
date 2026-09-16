@@ -212,3 +212,17 @@
 // };
 
 // export default App;
+import React from 'react'
+import Signup from './class_login/signup/SignUp'
+
+
+const App = () => {
+  return (
+    <div>
+     <Signup></Signup>
+    </div>
+  )
+}
+
+export default App
+
