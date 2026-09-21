@@ -271,8 +271,6 @@ let app = express();
 
 app.use(express.json());
 
-let router = express.Router();
-
 const JWT_SECRET = "hehehehhe";
 
 mongoose
@@ -283,6 +281,7 @@ mongoose
   .catch((err) => {
     console.error("DB connection error:", err);
   });
+  
 
 app.post("/signUp", async (req, res) => {
   try {
@@ -294,27 +293,36 @@ app.post("/signUp", async (req, res) => {
 
     if (findData) {
       return res.send("user jinda haii....");
-    } else {
-      let updateddP = await bcryptjs.hash(password, 10);
-
-      console.log("Email:", email);
-      console.log("Encrypted Password:", updateddP);
-
-      let UserInfo = new User({
-        name,
-        email,
-        password: updateddP,
-      });
-
-      await UserInfo.save();
-
-      return res.send("done.....");
     }
+
+    let updateddP = await bcryptjs.hash(password, 10);
+
+    console.log("Email:", email);
+    console.log("Encrypted Password:", updateddP);
+
+    let UserInfo = new User({
+      name,
+      email,
+      password: updateddP,
+    });
+
+    await UserInfo.save();
+
+    return res.send("done.....");
   } catch (err) {
     return res.status(500).send("Server error");
   }
 });
-
+app.get('/error',(req,res)=>{
+  try{
+    let user=null;
+    console.log(user.name);
+    res.send("hello");
+  }
+  catch(err){
+   res.send('err')
+  }
+})
 app.post("/login", async (req, res) => {
   try {
     let { email, password } = req.body;
@@ -397,7 +405,7 @@ app.post("/forgot-password", async (req, res) => {
     await user.save();
 
     const resetUrl =
-      `${req.protocol}://${req.get("host")}/api/reset-password/${resetToken}`;
+      `${req.protocol}://${req.get("host")}/reset-password/${resetToken}`;
 
     await sendEmail(
       user.email,
@@ -412,26 +420,34 @@ app.post("/forgot-password", async (req, res) => {
       .send("Error sending password reset email: " + error.message);
   }
 });
-app.post('/reset-password/:token', async(req,res)=>{
-   let {newP}= req.body
-     let {token}=   req.params
-    let user=  await User.findOne({
-         resetToken:token,
-         resetTokenExpiry:{$gt: Date.now()}
-         
-     })
-     if(!user){
-      return res.send("User not found")
-     }
-     else{
-       let updatedP=  await   bcryptjs.hash(newP,10)
-       user.passWord=updatedP
-       user.resetToken=undefined
-       user.resetTokenExpiry=undefined
-       await user.save()
-     }
 
- })
+app.post("/reset-password/:token", async (req, res) => {
+  const { newP } = req.body;
+  const { token } = req.params;
+
+  try {
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpiry: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(404).send("Invalid or expired token");
+    }
+
+    const updatedP = await bcryptjs.hash(newP, 10);
+
+    user.password = updatedP;
+    user.resetToken = undefined;
+    user.resetTokenExpiry = undefined;
+
+    await user.save();
+
+    res.status(200).send("Password reset successful");
+  } catch (error) {
+    res.status(500).send("Server error: " + error.message);
+  }
+});
 
 app.listen(3000, () => {
   console.log("server....");
